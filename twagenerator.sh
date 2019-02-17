@@ -15,6 +15,7 @@ main(){
 	test -e $KEYSTORE || (echo "Keystore $KEYSTORE: No such file"; exit 2)
 	test -e $ICON || (echo "Icon $ICON: No such file"; exit 2)
 
+	mkdir -p android/app/src/main/res/drawable
 	cp $ICON android/app/src/main/res/drawable/ic_launcher.png
 
 	file="app/build.gradle"
