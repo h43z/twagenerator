@@ -1,0 +1,46 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="_PACKAGENAME">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+      <meta-data
+          android:name="asset_statements"
+          android:resource="@string/asset_statements" />
+
+      <activity
+        android:name="android.support.customtabs.trusted.LauncherActivity">
+
+        <!-- Edit android:value to change the url opened by the TWA -->
+        <meta-data
+          android:name="android.support.customtabs.trusted.DEFAULT_URL"
+          android:value="https://_DOMAIN" />
+
+          <!-- This intent-filter adds the TWA to the Android Launcher -->
+          <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+          </intent-filter>
+
+          <!--
+          This intent-filter allows the TWA to handle Intents to open
+          pwa.43z.one.
+          -->
+          <intent-filter>
+            <action android:name="android.intent.action.VIEW"/>
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE"/>
+
+            <!-- Edit android:host to handle links to the target URL-->
+            <data
+              android:scheme="https"
+              android:host="_DOMAIN"/>
+            </intent-filter>
+          </activity>
+
+        </application>
+      </manifest>

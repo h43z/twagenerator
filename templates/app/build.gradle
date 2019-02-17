@@ -1,0 +1,36 @@
+apply plugin: 'com.android.application'
+
+android {
+  compileSdkVersion 27
+  defaultConfig {
+    applicationId "_PACKAGENAME"
+    minSdkVersion 16
+    targetSdkVersion 27
+    versionCode 1
+    versionName "1.0"
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+  signingConfigs {
+    release {
+      storeFile file("_KEYSTORE")
+      storePassword "_STOREPASS"
+      keyAlias "_ALIAS"
+      keyPassword "_KEYPASS"
+    }
+  }
+  buildTypes {
+    release {
+      signingConfig signingConfigs.release
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    }
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+}
+
+dependencies {
+  implementation fileTree(dir: 'libs', include: ['*.jar'])
+  implementation 'com.github.GoogleChrome.custom-tabs-client:customtabs:3a71a75c9f'
+}
