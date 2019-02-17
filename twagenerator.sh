@@ -11,13 +11,14 @@ main(){
 	test -n "$7" && ALIAS="$7" || usage
 	test -n "$8" && KEYPASS="$8" || usage
 
+	test "$KEYSTORE" != "${KEYSTORE#/}" || (echo "Keystore $KEYSTORE: Not absolute path"; exit 2)
 	test -e $KEYSTORE || (echo "Keystore $KEYSTORE: No such file"; exit 2)
 	test -e $ICON || (echo "Icon $ICON: No such file"; exit 2)
 
 	cp $ICON android/app/src/main/res/drawable/ic_launcher.png
 
 	file="app/build.gradle"
-	m4 -D _PACKAGENAME=$PACKAGENAME -D _KEYSTORE="$(pwd)/$(basename $KEYSTORE)" -D _STOREPASS=$STOREPASS -D _ALIAS=$ALIAS -D _KEYPASS=$KEYPASS templates/$file > android/$file
+	m4 -D _PACKAGENAME=$PACKAGENAME -D _KEYSTORE=$KEYSTORE -D _STOREPASS=$STOREPASS -D _ALIAS=$ALIAS -D _KEYPASS=$KEYPASS templates/$file > android/$file
 
 	file="app/src/main/AndroidManifest.xml"
 	m4 -D _DOMAIN=$DOMAIN -D _PACKAGENAME=$PACKAGENAME templates/$file > android/$file
